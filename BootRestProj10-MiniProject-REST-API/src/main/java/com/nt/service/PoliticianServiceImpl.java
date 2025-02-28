@@ -1,6 +1,7 @@
 package com.nt.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,18 @@ public class PoliticianServiceImpl implements IPoliticianService
 	public List<Politician> showPoliticianById(String party1, String party2, String party3) throws PoliticianNotFoundException {
 		List<Politician> list=politicianRepo.showAllPoliticianByParty(party1, party2, party3);
 		return list;
+	}
+
+
+	@Override
+	public String updatePolitician(Politician poli) throws PoliticianNotFoundException {
+		Optional<Politician> politician=politicianRepo.findById(poli.getPid());
+		if(politician.isPresent()) {
+			politicianRepo.save(poli);
+			return poli.getPid()+":: id record is updated";
+		} else {
+		throw new PoliticianNotFoundException(poli.getPid()+":: Politician not found");
+		}
 	}
 
 
