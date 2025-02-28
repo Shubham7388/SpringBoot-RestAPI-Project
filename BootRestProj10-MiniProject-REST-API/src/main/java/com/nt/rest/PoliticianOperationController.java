@@ -54,7 +54,7 @@ public class PoliticianOperationController
 	
 	
 	//for getting politician record by party
-	@GetMapping("findByparty/{party1}/{party2}/{party3}")
+	@GetMapping("/findByparty/{party1}/{party2}/{party3}")
 	public ResponseEntity<?> showPoliticianByParty(@PathVariable(required = false) String party1,
 																																	@PathVariable(required = false) String party2,
 																																	@PathVariable(required = false) String party3) {
@@ -66,13 +66,23 @@ public class PoliticianOperationController
 		}
 	}
 	
-	@PutMapping("modify")
+	@PutMapping("/modify")
 	public ResponseEntity<?> updatePolitician(@RequestBody Politician poli) {
 		try {
 			String msg=politicianService.updatePolitician(poli);
 			return new ResponseEntity<String>(msg,HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/findbyName/{name}")
+	public ResponseEntity<?> showPoliticianbyName(@PathVariable("name") String name) {
+		try {
+			List<Politician> list=politicianService.showPoliticianByName(name);
+			return new ResponseEntity<List<Politician>>(list,HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Internal Problem:: "+e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }
