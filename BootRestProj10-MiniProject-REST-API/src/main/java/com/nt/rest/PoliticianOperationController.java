@@ -43,4 +43,16 @@ public class PoliticianOperationController
 		Politician politician=politicianService.showPoliticianById(id);
 		return new ResponseEntity<Politician>(politician,HttpStatus.OK);
 	}
+	
+	@GetMapping("findByparty/{party1}/{party2}/{party3}")
+	public ResponseEntity<?> showPoliticianByParty(@PathVariable(required = false) String party1,
+																																	@PathVariable(required = false) String party2,
+																																	@PathVariable(required = false) String party3) {
+		try {
+			List<Politician> list=politicianService.showPoliticianById(party1, party2, party3);
+			return new ResponseEntity<List<Politician>>(list,HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Internal Problem:: "+e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

@@ -10,5 +10,5 @@ public interface IPoliticianService
 	public String registerPolitician(Politician politician);	//register politician
 	public List<Politician> showAllPolitician();			//showing all politician
 	public Politician showPoliticianById(Integer pid) throws PoliticianNotFoundException;		//showing politician by id
-	public Politician showPoliticianById(String party) throws PoliticianNotFoundException;    //showing politician by party
+	public List<Politician> showPoliticianById(String party1, String party2, String party3) throws PoliticianNotFoundException;    //showing politician by party
 }

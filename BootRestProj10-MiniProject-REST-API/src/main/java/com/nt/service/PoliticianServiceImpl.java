@@ -40,9 +40,12 @@ public class PoliticianServiceImpl implements IPoliticianService
 
 
 	@Override
-	public Politician showPoliticianById(String party) throws PoliticianNotFoundException {
-		
-		return null;
+	public List<Politician> showPoliticianById(String party1, String party2, String party3) throws PoliticianNotFoundException {
+		List<Politician> list=politicianRepo.showAllPoliticianByParty(party1, party2, party3);
+		return list;
 	}
+
+
+
 
 }
