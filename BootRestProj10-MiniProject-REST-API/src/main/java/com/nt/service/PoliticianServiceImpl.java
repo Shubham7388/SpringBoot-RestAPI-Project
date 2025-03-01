@@ -10,6 +10,8 @@ import com.nt.entity.Politician;
 import com.nt.exception.PoliticianNotFoundException;
 import com.nt.repository.IPoliticianRepo;
 
+import jakarta.transaction.Transactional;
+
 
 @Service("politicianService")
 public class PoliticianServiceImpl implements IPoliticianService 
@@ -63,6 +65,38 @@ public class PoliticianServiceImpl implements IPoliticianService
 	public List<Politician> showPoliticianByName(String name) throws PoliticianNotFoundException {
 		List<Politician> list=politicianRepo.showPoliticianByName(name);
 		return list;
+	}
+
+
+//	@Override
+//	public String partialPoliticianUpdate(Integer id,String newParty,String name) throws Exception {
+//		Optional<Politician> optional=politicianRepo.findById(id);
+//		Integer idVal=null;
+//		if(optional.isPresent()) {
+//			Politician politician=optional.get();
+//			politician.setParty(newParty);
+//			politician.setPname(name);
+//			idVal=politicianRepo.save(politician).getPid();
+//		}
+//		return idVal+" :: id is partially updated";
+//	}
+	
+	@Override
+	public String partialPoliticianUpdate(Integer id, Politician poli) throws Exception {
+		Optional<Politician> optional=politicianRepo.findById(id);
+		if(optional.isPresent()) {
+			Politician politician=optional.get();
+			if(poli.getParty()!=null) {
+				politician.setParty(poli.getParty());
+			} 
+			if(poli.getPname()!=null) {
+				politician.setPname(poli.getPname());
+			}
+			Integer idVal = politicianRepo.save(politician).getPid();
+	        return idVal + " :: ID is partially updated";
+	    } else {
+	        throw new Exception("Politician not found with ID: " + id);
+	    }
 	}
 
 

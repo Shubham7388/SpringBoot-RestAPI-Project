@@ -2,10 +2,12 @@ package com.nt.rest;
 
 import java.util.List;
 
+import org.hibernate.annotations.PartitionKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -84,5 +86,19 @@ public class PoliticianOperationController
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Internal Problem:: "+e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+		//In this partial method I'm passing party and name as parameter
+//	@PatchMapping("/partial-update/{pid}/{party}/{pname}")
+//	public ResponseEntity<?> partialUpdate(@PathVariable("pid") Integer id, @PathVariable("party") String party ,@PathVariable("pname") String name ) throws Exception {
+//		String msg=politicianService.partialPoliticianUpdate(id, party, name);
+//		return new ResponseEntity<String>(msg,HttpStatus.OK);
+//	}
+	
+	////In this partial method I'm passing party and name as request body
+	@PatchMapping("/partial-update/{pid}")
+	public ResponseEntity<?> partialUpdate(@PathVariable("pid") Integer id, @RequestBody Politician poli ) throws Exception {
+		String msg=politicianService.partialPoliticianUpdate(id, poli);
+		return new ResponseEntity<String>(msg,HttpStatus.OK);
 	}
 }
