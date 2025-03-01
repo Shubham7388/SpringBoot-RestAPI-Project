@@ -15,4 +15,5 @@ public interface IPoliticianService
 	public List<Politician> showPoliticianByName(String name) throws PoliticianNotFoundException; 		//find politician by name
 //	public String partialPoliticianUpdate(Integer id,String newParty, String name) throws Exception;
 	public String partialPoliticianUpdate(Integer id, Politician poli) throws Exception;
+	public String deletePoliticianById(Integer id) throws Exception;
 }

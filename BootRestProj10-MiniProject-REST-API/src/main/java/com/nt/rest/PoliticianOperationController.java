@@ -2,10 +2,10 @@ package com.nt.rest;
 
 import java.util.List;
 
-import org.hibernate.annotations.PartitionKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nt.entity.Politician;
-import com.nt.exception.PoliticianNotFoundException;
 import com.nt.service.IPoliticianService;
 
 @RestController
@@ -99,6 +98,13 @@ public class PoliticianOperationController
 	@PatchMapping("/partial-update/{pid}")
 	public ResponseEntity<?> partialUpdate(@PathVariable("pid") Integer id, @RequestBody Politician poli ) throws Exception {
 		String msg=politicianService.partialPoliticianUpdate(id, poli);
+		return new ResponseEntity<String>(msg,HttpStatus.OK);
+	}
+	
+	
+	@DeleteMapping("/delete/{pid}")
+	public ResponseEntity<?> politicianDeleteByID(@PathVariable("pid") Integer id) throws Exception {
+		String msg=politicianService.deletePoliticianById(id);
 		return new ResponseEntity<String>(msg,HttpStatus.OK);
 	}
 }

@@ -100,6 +100,9 @@ public class PoliticianServiceImpl implements IPoliticianService
 	}
 
 
-
-
+	@Override
+	public String deletePoliticianById(Integer id) throws Exception {
+		politicianRepo.deleteById(id);
+		return id+" :: id is deleted";
+	}
 }
